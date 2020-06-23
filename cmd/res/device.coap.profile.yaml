@@ -1,0 +1,82 @@
+name: "Coap-Device"
+manufacturer: "IOTech"
+model: "COAP"
+labels:
+- "test"
+description: "simulate a device"
+
+deviceResources:
+  -
+    name: rand
+    description: "get random number"
+    properties:
+      value:
+        { type: "Int16", readWrite: "R", defaultValue: "0", scale: "1", mediatype: "" }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "" }
+  -
+    name: message
+    description: "device notification message"
+    properties:
+      value:
+        { type: "String", size: "0", readWrite: "R" ,defaultValue: "" }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "" }
+  -
+    name: maxnum
+    description: "set the max number of random"
+    properties:
+      value:
+        { type: "Int64", size: "1", readWrite: "WR" ,scale: "", offset: "", base: "" }
+      units:
+        { type: "String", readWrite: "R", defaultValue: ""}
+
+deviceCommands:
+  - name: testrand
+    get:
+      - { index: "1", operation: "get", deviceResource: "rand"}
+  -
+    name: testmessage
+    get:
+      - { index: "1", operation: "get", deviceResource: "message"}
+    set:
+      - { index: "1", operation: "set", deviceResource: "maxnum"}
+
+coreCommands:
+  - name: testrand
+    get:
+      path: "/api/v1/device/{deviceId}/testrand"
+      responses:
+        -
+          code: "200"
+          description: "get the random value"
+          expectedValues: ["rand"]
+        -
+          code: "500"
+          description: "service unavailable"
+          expectedValues: []
+  -
+    name: testmessage
+    get:
+      path: "/api/v1/device/{deviceId}/testmessage"
+      responses:
+        -
+          code: "200"
+          description: "ping the device"
+          expectedValues: ["message"]
+        -
+          code: "500"
+          description: "service unavailable"
+          expectedValues: []
+    put:
+      path: "/api/v1/device/{deviceId}/testmessage"
+      parameterNames: ["maxnum"]
+      responses:
+        -
+          code: "204"
+          description: "set the message."
+          expectedValues: []
+        -
+          code: "500"
+          description: "service unavailable"
+          expectedValues: []
