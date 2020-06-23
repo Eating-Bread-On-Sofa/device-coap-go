@@ -168,13 +168,13 @@ sudo docker-compose -f docker-compose.yml down
 ```cassandraql
 go run device.go
 ```
-- 修改完本设备服务cmd/res目录下configuration.toml文件的IP地址后，返回到device-udp-go主文件夹下，打开终端，输入如下命令构建设备服务，生成二进制可执行文件：
+- 修改完本设备服务cmd/res目录下configuration.toml文件的IP地址后，返回到device-coap-go主文件夹下，打开终端，输入如下命令构建设备服务，生成二进制可执行文件：
 ```cassandraql
 make build
 ```
--  移动到cmd目录下，可以看见可执行文件device-udp-go，输入如下命令启动设备服务：
+-  移动到cmd目录下，可以看见可执行文件device-coap-go，输入如下命令启动设备服务：
 ```cassandraql
-./device-udp-go
+./device-coap-go
 ```
 终端界面将会显示日志。
 ## 读取数据方式
